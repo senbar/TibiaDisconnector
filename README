@@ -1,0 +1,8 @@
+Tibia Disconnector - simple script designed for abusing Tibia lag protection system. 
+
+Works only on Linux
+
+function disconnect() does following steps:
+$Id = pgrep Tibia
+gdb -p $Id
+	call close(5u) //5u is tcp client
