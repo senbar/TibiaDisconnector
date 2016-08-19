@@ -1,5 +1,9 @@
 import subprocess
 import time
+import keyboard
+import sys
+
+
 def disconnect ():
     pgrep= subprocess.run("pgrep Tibia", shell=True, stdout= subprocess.PIPE)
     tibiaId= int(pgrep.stdout)
@@ -11,7 +15,20 @@ def disconnect ():
     p.kill()
     return(0)
 
+def listen (hotkey = "ctrl + F"):
+    print("Listening on hotkey ", hotkey)
+
+    keyboard.add_hotkey(hotkey, disconnect)
+    keyboard.add_hotkey('ctrl + escape', lambda: sys.exit(0))
+
+    keyboard.wait('esc')
+
 
 if __name__ == '__main__':
-    disconnect()
+    hotkey= str(input('Give hotkey for disconnecting: '))
+
+    if hotkey:
+        listen(hotkey)
+    else:
+        listen()
 
